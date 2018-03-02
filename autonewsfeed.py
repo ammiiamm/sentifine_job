@@ -39,8 +39,8 @@ count_duplicate = 0
 # Access the 'headlines' collection in the 'news' database
 client = pymongo.MongoClient()
 #collection = client.sentidb.collect_news
-collection = client.sentifine.finnews_raw
-collection_fin = client.sentifine.finnews
+collection = client.sentifine.finnews_map
+collection_fin = client.sentifine.finnews_raw
 
 for feed, url in feeds.items():
 
@@ -55,12 +55,11 @@ for feed, url in feeds.items():
             sentiment_default = "N/A"
             d = {
                 '_id':art['link'],
-                'source':feed,
+                #'source':feed,
                 'title':art['title'],
                 'published':published,
-                'title_detail':art['title_detail']['value'],
-                'summary':art['summary'],
-                #'summary_detail':art['summary_detail'],
+                #'title_detail':art['title_detail']['value'],
+                #'summary':art['summary'],
                 'url_link':art['link'],
                 'retrieved':dt
             }
