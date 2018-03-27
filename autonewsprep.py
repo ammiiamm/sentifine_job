@@ -3,12 +3,15 @@
 #%autoreload 2
 #%matplotlib inline
 
+import tensorflow
+
 from pythainlp.tokenize import word_tokenize
 from gensim.models import KeyedVectors
 from sklearn.manifold import TSNE
 import matplotlib.font_manager as fm
 import dill as pickle
 
+#import gensim
 import sys
 import os
 import re
@@ -30,13 +33,14 @@ df = pd.DataFrame(list(cursor))
 sentiment_default = "Pending"
 
 #load Thai2vec model into gensim
-model = KeyedVectors.load_word2vec_format('/home/st118957_ait/sentifine/job/thai2vec.vec',binary=False)
+#model = KeyedVectors.load_word2vec_format('/home/st118957_ait/sentifine/job/thai2vec.vec',binary=False)
+model = KeyedVectors.load_word2vec_format('/home/st118957_ait/sentifine/job/wiki.th.vec',binary=False)
 #create dataframe
 thai2dict = {}
 for word in model.index2word:
     thai2dict[word] = model[word]
 thai2vec = pd.DataFrame.from_dict(thai2dict,orient='index')
-thai2vec.head()
+print(thai2vec.head())
 
 for index, row in df.iterrows():
 
