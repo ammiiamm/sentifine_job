@@ -34,7 +34,7 @@ sentiment_default = "Pending"
 
 #load Thai2vec model into gensim
 #model = KeyedVectors.load_word2vec_format('/home/st118957_ait/sentifine/job/thai2vec.vec',binary=False)
-model = KeyedVectors.load_word2vec_format('/home/st118957_ait/sentifine/job/wiki.th.vec',binary=False)
+model = KeyedVectors.load_word2vec_format('/home/st118957_ait/sentifine/wordembedding/wiki.th.vec',binary=False)
 #create dataframe
 thai2dict = {}
 for word in model.index2word:
