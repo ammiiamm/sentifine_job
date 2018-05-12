@@ -7,7 +7,7 @@ import os
 import feedparser
 import datetime
 import pymongo
-from langdetect import detect
+#from langdetect import detect
 from dateutil import parser
 
 #create a dictionary of rss feeds
@@ -29,42 +29,6 @@ feeds = dict(
     manager_biz = r'http://www.manager.co.th/RSS/iBizChannel/iBizChannel.xml',
 )
 
-news_cat = dict(
-        thaipr_fin = 'Finance',
-        thaipr_property = 'Property',
-        posttoday_econ = 'Economy',
-        posttoday_fin = 'Finance',
-        posttoday_market = 'Business',
-        posttoday_property = 'Property',
-        bbkbiznews_buz = 'Business',
-        bkkbiznews_econ = 'Economy',
-        bkkbiznews_fin = 'Finance',
-        bkkbiznews_property = 'Property',
-        thaipbs_econ = 'Economy',
-        matichon_econ = 'Economy',
-        manager_stock = 'Finance',
-        manager_mutualfund = 'Finance',
-        manager_biz = 'Business'
-    )
-
-news_source = dict(
-        thaipr_fin = 'ThaiPR',
-        thaipr_property = 'ThaiPR',
-        posttoday_econ = 'PostToday',
-        posttoday_fin = 'PostToday',
-        posttoday_market = 'PostToday',
-        posttoday_property = 'PostToday',
-        bkkbiznews_buz = 'BangkokBizNews',
-        bkkbiznews_econ = 'BangkokBizNews',
-        bkkbiznews_fin = 'BangkokBizNews',
-        bkkbiznews_property = 'BangkokBizNews',
-        thaipbs_econ = 'ThaiPBS',
-        matichon_econ = 'Matichon',
-        manager_stock = 'Manager',
-        manager_mutualfund = 'Manager',
-        manager_biz = 'Manager'
-    )
-
 #grab the current time
 dt = datetime.datetime.utcnow()
 
@@ -84,10 +48,9 @@ for feed, url in feeds.items():
 
     for art in rss_parsed['items']:
         #Filter only Thai language from title
-        lang = detect(art['title'])
+        #lang = detect(art['title'])
         #print(art)
-        if lang == 'th':
-            
+        #if lang == 'th':
             published = parser.parse(art['published'])
             sentiment_default = "N/A"
             d = {
@@ -102,17 +65,15 @@ for feed, url in feeds.items():
             }
 
             f = {
-                'source':news_source.get(feed),
-                'source_url':feed,
+                'source':feed,
                 'title':art['title'],
                 'published':published,
                 'title_detail':art['title_detail']['value'],
                 'summary':art['summary'],
                 #'summary_detail':art['summary_detail'],
-                'category':news_cat.get(feed),
                 'url_link':art['link'],
                 'retrieved':dt,
-                'sentiment':sentiment_default,
+                'sentiment':sentiment_default
             }
 
             #insert item by item because of the duplicate of some source's links
@@ -127,9 +88,6 @@ for feed, url in feeds.items():
             except:
                 print ("Unexpected error:", sys.exc_info()[0])
                 raise
-        else:
-            print("Non-Thai Content")
-            #print(art)
 
 print("Number of Duplicated Records :" + str(count_duplicate))
 print("Number of New Records :" + str(count_insert))
