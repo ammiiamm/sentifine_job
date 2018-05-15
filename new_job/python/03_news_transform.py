@@ -50,7 +50,7 @@ data_ints = []
 i_count = 0
 for index, row in df.iterrows():
     temp_ints = []
-    for word in row['Text'].split():
+    for word in thai2vec_vocab['Text'].split():
         #print(vocab_to_int[word])
         if my_dict_to_int.get(word, 0) != 0:
             temp_ints.append(my_dict_to_int[word])
