@@ -18,7 +18,7 @@ import pymongo
 import traceback
 
 #init console log
-print("[01_news_retrieve] S Started job at" + datetime.datetime.utcnow())
+print("[01_news_retrieve] S Started job at" + str(datetime.datetime.utcnow()))
 
 #grab the current time
 dt = datetime.datetime.utcnow()
@@ -140,4 +140,4 @@ for feed, url in feeds.items():
 #final log
 print("[01_news_retrieve] I Number of Duplicated Records :" + str(count_duplicate))
 print("[01_news_retrieve] I Number of New Records :" + str(count_insert))
-print("[01_news_retrieve] S Finished job at" + datetime.datetime.utcnow())
+print("[01_news_retrieve] S Finished job at" + str(datetime.datetime.utcnow()))

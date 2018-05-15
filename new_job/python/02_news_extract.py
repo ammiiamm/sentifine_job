@@ -19,7 +19,7 @@ import datetime
 import traceback
 
 #init console log
-print("[02_news_extract] S Started job at" + datetime.datetime.utcnow())
+print("[02_news_extract] S Started job at" + str(datetime.datetime.utcnow()))
 
 # Connect to Mongo
 client = pymongo.MongoClient()
@@ -270,7 +270,7 @@ for index, row in df.iterrows():
 
     #update status of item in news_raw 
     r_query = { "_id": row["_id"]}
-    r_update = {"$set":{ "status": status_default, "dc_title": deepcut_title, "ex_dt": datetime.datetime.utcnow()}}
+    r_update = {"$set":{ "status": status_default, "dc_title": deepcut_title, "ex_dt": str(datetime.datetime.utcnow())}}
 
     try:
         collection_raw.update_one(r_query, r_update)
@@ -280,4 +280,4 @@ for index, row in df.iterrows():
         #raise
 
 #final log
-print("[02_news_extract] S Finished job at" + datetime.datetime.utcnow())
+print("[02_news_extract] S Finished job at" + str(datetime.datetime.utcnow()))

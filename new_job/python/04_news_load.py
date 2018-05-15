@@ -21,7 +21,7 @@ import datetime
 import traceback
 
 #init console log
-print("[04_news_load] S Started job at" + datetime.datetime.utcnow())
+print("[04_news_load] S Started job at" + str(datetime.datetime.utcnow()))
 
 f_model_h5 = "/home/st118957_ait/sentifine/model/02_57_model.h5"
 f_model_json = "/home/st118957_ait/sentifine/model/02_57_model_json.json"
@@ -80,7 +80,8 @@ for index, row in df.iterrows():
             'url_link':row['url_link'],
             'retrieved':row['retrieved'],
             'category':row['category'],
-            'sentiment':i_sentiment
+            'sentiment':i_sentiment,
+            'fetch_dt':str(datetime.datetime.utcnow())
     }    
     try:    
         collection_sentifine.insert_one(s)
@@ -90,7 +91,7 @@ for index, row in df.iterrows():
 
     #update status of item in news_extract 
     r_query = { "_id": row["_id"]}
-    r_update = {"$set":{ "status": status_default, "ld_dt": datetime.datetime.utcnow()}}
+    r_update = {"$set":{ "status": status_default, "ld_dt": str(datetime.datetime.utcnow())}}
 
     try:
         collection_raw.update_one(r_query, r_update)
@@ -99,4 +100,4 @@ for index, row in df.iterrows():
         print ("[04_news_load] E " + str(ex))
 
 #final log
-print("[04_news_load] S Finished job at " + datetime.datetime.utcnow())
+print("[04_news_load] S Finished job at " + str(datetime.datetime.utcnow()))
