@@ -23,9 +23,9 @@ import traceback
 #init console log
 print("[04_news_load] S Started job at" + str(datetime.datetime.utcnow()))
 
-f_model_h5 = "/home/st118957_ait/sentifine/model/02_57_model.h5"
-f_model_json = "/home/st118957_ait/sentifine/model/02_57_model_json.json"
-f_model_weights = "/home/st118957_ait/sentifine/model/02_57_model_weights.h5"
+f_model_h5 = "/home/st118957_ait/sentifine/model/thai2vec-3_model.h5"
+f_model_json = "/home/st118957_ait/sentifine/model/thai2vec-3_model_json.json"
+f_model_weights = "/home/st118957_ait/sentifine/model/thai2vec-3_model_weights.h5"
 status_default = "Loaded"
 
 # Connect to MongoDB
