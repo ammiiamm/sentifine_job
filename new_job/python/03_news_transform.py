@@ -46,16 +46,16 @@ thai2vec_vocab = pd.read_csv(thai2vec_vocab, header=None, sep= " ", encoding="UT
 my_dict_to_int = thai2vec_vocab.set_index('Text')['Key'].to_dict() 
 
 #assign each word in title of news to int and build a new list of titles with int
-data_ints = []
-i_count = 0
-for index, row in df.iterrows():
-    temp_ints = []
-    for word in thai2vec_vocab['Text'].split():
-        #print(vocab_to_int[word])
-        if my_dict_to_int.get(word, 0) != 0:
-            temp_ints.append(my_dict_to_int[word])
-    data_ints.append(temp_ints)
-    i_count = i_count + 1
+# data_ints = []
+# i_count = 0
+# for index, row in df.iterrows():
+#     temp_ints = []
+#     for word in row['Text'].split():
+#         #print(vocab_to_int[word])
+#         if my_dict_to_int.get(word, 0) != 0:
+#             temp_ints.append(my_dict_to_int[word])
+#     data_ints.append(temp_ints)
+#     i_count = i_count + 1
 
 print("[03_news_transform] I Transforming words to numbers...")
 for index, row in df.iterrows():
