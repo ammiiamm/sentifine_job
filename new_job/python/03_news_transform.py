@@ -23,7 +23,7 @@ import datetime
 import traceback
 
 #init console log
-print("[03_news_transform] S Started job at" + str(datetime.datetime.utcnow()))
+print("[03_news_transform] S Started job at " + str(datetime.datetime.utcnow()))
 
 # Connect to the finnews
 client = pymongo.MongoClient()
@@ -104,4 +104,4 @@ for index, row in df.iterrows():
         #raise
 
 #final log
-print("[03_news_transform] S Finished job at" + str(datetime.datetime.utcnow()))
+print("[03_news_transform] S Finished job at " + str(datetime.datetime.utcnow()))

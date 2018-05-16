@@ -21,7 +21,7 @@ import datetime
 import traceback
 
 #init console log
-print("[04_news_load] S Started job at" + str(datetime.datetime.utcnow()))
+print("[04_news_load] S Started job at " + str(datetime.datetime.utcnow()))
 
 f_model_h5 = "/home/st118957_ait/sentifine/model/thai2vec-3_model.h5"
 f_model_json = "/home/st118957_ait/sentifine/model/thai2vec-3_model_json.json"
@@ -50,25 +50,22 @@ print("[04_news_load] I Setting up parameters...")
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
+title_int = pad_sequences(df['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
 
-#print("[04_news_load] I Inferencing...")
-#news_fit = model.predict(title_int, batch_size=10, verbose=1)
-#news_class = model.predict_classes(title_int)
+print("[04_news_load] I Inferencing...")
+news_fit = model.predict(title_int, batch_size=10, verbose=1)
+news_class = model.predict_classes(title_int)
 
 print("[04_news_load] I Updating sentiments...")
 
 for index, row in df.iterrows():
     
-    print(row['title'])
-
-    title_int = pad_sequences(row['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
-    news_class = model.predict_classes(title_int)
-    
-    if news_class == 0:
+    i_sentiment = ''
+    if news_class[index] == 0:
         i_sentiment = "Negative"
-    elif news_class == 1:
+    elif news_class[index] == 1:
         i_sentiment = "Neutral"
-    elif news_class == 2:
+    elif news_class[index] == 2:
         i_sentiment = "Positive"
     else:
         i_sentiment = "NA"

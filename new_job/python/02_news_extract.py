@@ -19,7 +19,7 @@ import datetime
 import traceback
 
 #init console log
-print("[02_news_extract] S Started job at" + str(datetime.datetime.utcnow()))
+print("[02_news_extract] S Started job at " + str(datetime.datetime.utcnow()))
 
 # Connect to Mongo
 client = pymongo.MongoClient()
@@ -280,4 +280,4 @@ for index, row in df.iterrows():
         #raise
 
 #final log
-print("[02_news_extract] S Finished job at" + str(datetime.datetime.utcnow()))
+print("[02_news_extract] S Finished job at " + str(datetime.datetime.utcnow()))
