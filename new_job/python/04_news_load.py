@@ -32,7 +32,8 @@ status_default = "Loaded"
 client = pymongo.MongoClient()
 collection_raw = client.sentifine.news_raw
 #collection_transform = client.sentifine.news_transform
-collection_sentifine = client.sentifine.news_sentifine
+#collection_sentifine = client.sentifine.news_sentifine
+collection_sentifine = client.sentifine.finnews
 cursor = collection_raw.find( {"status": "Transformed"} )
 
 print("[04_news_load] I Loading news and model...")
