@@ -50,22 +50,25 @@ print("[04_news_load] I Setting up parameters...")
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
-title_int = pad_sequences(df['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
 
-print("[04_news_load] I Inferencing...")
-news_fit = model.predict(title_int, batch_size=10, verbose=1)
-news_class = model.predict_classes(title_int)
+#print("[04_news_load] I Inferencing...")
+#news_fit = model.predict(title_int, batch_size=10, verbose=1)
+#news_class = model.predict_classes(title_int)
 
 print("[04_news_load] I Updating sentiments...")
 
 for index, row in df.iterrows():
     
-    i_sentiment = ''
-    if news_class[index] == 0:
+    print(row['title'])
+
+    title_int = pad_sequences(row['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
+    news_class = model.predict_classes(title_int)
+    
+    if news_class == 0:
         i_sentiment = "Negative"
-    elif news_class[index] == 1:
+    elif news_class == 1:
         i_sentiment = "Neutral"
-    elif news_class[index] == 2:
+    elif news_class == 2:
         i_sentiment = "Positive"
     else:
         i_sentiment = "NA"
