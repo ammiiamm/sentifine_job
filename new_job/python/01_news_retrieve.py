@@ -81,6 +81,15 @@ news_source = dict(
 data = []
 count_insert = 0
 count_duplicate = 0
+filterBOTKeyword = ['ธปท','ธนาคารแห่งประเทศไทย','ธนาคารชาติ','ธนาคารกลาง','แบงค์ชาติ',
+                    'แบงก์ขาติ','Bank of Thailand','กนง','คณะกรรมการนโยบายการเงิน',
+                    'ศคง','ศูนย์คุ้มครองผู้ใช้บริการทางการเงิน','สถาบันวิจัยเศรษฐกิจป๋วย อึ๊งภากรณ์',
+                    'กองทุนเพื่อการฟื้นฟู','FIDF','วิรไท สันติประภพ','ไพบูลย์ กิตติศรีกังวาน',
+                    'เมธี สุภาพงษ์','วชิรา อารมย์ดี','จาตุรงค์ จันทรังษ์','ฤชุกร สิริโยธิน',
+                    'รณดล นุ่มนนท์','สิริธิดา พนมวัน ณ อยุธยา','ณัฐวุฒิ พงศ์สิริ','เพิ่มสุข สุทธินุ่น',
+                    'วรพร ตั้งสง่าศักดิ์ศรี','นวพร มหารักขกะ','พฤทธิพงศ์ ศรีมาจันทร์','สุภาวดี ปุณศรี',
+                    'จันทวรรณ สุจริตกุล','ปิติ ดิษยทัต','สักกะภพ พันธ์ยานุกูล','ดอน นาครทรรพ','สุรัช แทนบุญ',
+                    'ยรรยง ไทยเจริญ','รุ่ง มัลลิกะมาส']
 
 # Access the 'headlines' collection in the 'news' database
 client = pymongo.MongoClient()
@@ -97,6 +106,11 @@ for feed, url in feeds.items():
         #print(art)
         if lang == 'th':
             
+            #Checking if each news related with BOT
+            filter_bot = 'N'
+            if any(k in str(art['title']) for k in filterBOTKeyword) or (any(k in str(art['title_detail']) for k in filterBOTKeyword)) or (any(k in str(art['summary']) for k in filterBOTKeyword)):
+                filter_bot = 'Y'
+
             published = parser.parse(art['published'])
             sentiment_default = "Retrieved"
             m = {
@@ -117,6 +131,7 @@ for feed, url in feeds.items():
                 'category':news_cat.get(feed),
                 'url_link':art['link'],
                 'retrieved':dt,
+                'filter_BOT':filter_bot,
                 'status':sentiment_default
             }
 
