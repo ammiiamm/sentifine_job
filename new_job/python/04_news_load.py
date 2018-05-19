@@ -1,7 +1,7 @@
 ##########
 # Program: 04_news_load.py
 # Github: @ammiiamm
-# Collections: news_raw, news_sentifine
+# Collections: news_raw, finnew
 # Log pattern: [Program name] [I=Information, S=Status, E=Error, W=Warning] [Description]
 # Descriptions:
 # 1. Pass the word vectors through our Unsupervised ML Model
@@ -70,7 +70,7 @@ for index, row in df.iterrows():
     else:
         i_sentiment = "NA"
 
-    #insert item into news_transformation
+    #insert item into finnew
     s = {
             'source':row["source"],
             'source_url':row["source_url"],
@@ -82,22 +82,23 @@ for index, row in df.iterrows():
             'retrieved':row['retrieved'],
             'category':row['category'],
             'sentiment':i_sentiment,
+            'filter_BOT':row['filter_bot'],
             'fetch_dt':str(datetime.datetime.utcnow())
     }    
     try:    
         collection_sentifine.insert_one(s)
     except Exception as ex:
-        print ("[04_news_load] E Unexpected error while inserting collection news_sentifine.")
+        print ("[04_news_load] E Unexpected error while inserting collection finnew.")
         print ("[04_news_load] E " + str(ex))
 
-    #update status of item in news_extract 
+    #update status of item in news_raw 
     r_query = { "_id": row["_id"]}
     r_update = {"$set":{ "status": status_default, "ld_dt": str(datetime.datetime.utcnow())}}
 
     try:
         collection_raw.update_one(r_query, r_update)
     except Exception as ex:
-        print ("[04_news_load] E Unexpected error while updating collection news_transform.")
+        print ("[04_news_load] E Unexpected error while updating collection news_raw.")
         print ("[04_news_load] E " + str(ex))
 
 #final log
