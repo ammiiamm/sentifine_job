@@ -1,6 +1,5 @@
 import sys
-sys.path.append("/home/st118957_ait/sentifine/job/scripts/python/")
-
+import time
 from rq import Queue
 from redis import Redis
 from news_retrieve import func_news_retrieve
@@ -18,4 +17,8 @@ transform_job = q.enqueue(func_news_transform, depends_on=extract_job)
 load_job = q.enqueue(func_news_load, depends_on=transform_job)
 
 time.sleep(2)
-print job.result
+print(retrieve_job.result)
+print(extract_job.result)
+print(transform_job.result)
+print(load_job.result)
+
