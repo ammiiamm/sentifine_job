@@ -87,7 +87,7 @@ def func_news_load(*args, **kwarg):
                 'retrieved':row['retrieved'],
                 'category':row['category'],
                 'sentiment':i_sentiment,
-                'filter_BOT':row['filter_bot'],
+                'filter_BOT':row['filter_BOT'],
                 'fetch_dt':str(datetime.datetime.utcnow())
         }    
         try:    
