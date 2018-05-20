@@ -3,7 +3,7 @@
 
 import sys
 import time
-from rq import Queue
+from rq import Flow, Queue
 from redis import Redis
 from news_retrieve import func_news_retrieve
 from news_extract import func_news_extract
@@ -14,14 +14,29 @@ from news_load import func_news_load
 redis_conn = Redis()
 q = Queue('newsfeed', connection=redis_conn)  # no args implies the default queue
 
-retrieve_job = q.enqueue(func_news_retrieve)
-extract_job = q.enqueue(func_news_extract, depends_on=retrieve_job)
-transform_job = q.enqueue(func_news_transform, depends_on=extract_job)
-load_job = q.enqueue(func_news_load, depends_on=transform_job)
 
-time.sleep(2)
-print(retrieve_job.result)
-print(extract_job.result)
-print(transform_job.result)
-print(load_job.result)
+with Flow(q) as f:
+    f.enqueue(func_news_retrieve)
+    f.enqueue(func_news_extract)
+    f.enqueue(func_news_transform)
+    f.enqueue(func_news_load)
+
+# without the 'with' context
+f = Flow.start(q)
+f.finish()
+
+
+# retrieve_job = q.enqueue(func_news_retrieve)
+# time.sleep(2)
+# extract_job = q.enqueue(func_news_extract, depends_on=retrieve_job)
+# time.sleep(2)
+# transform_job = q.enqueue(func_news_transform, depends_on=extract_job)
+# time.sleep(2)
+# load_job = q.enqueue(func_news_load, depends_on=transform_job)
+
+# time.sleep(2)
+# print(retrieve_job.result)
+# print(extract_job.result)
+# print(transform_job.result)
+# print(load_job.result)
 
