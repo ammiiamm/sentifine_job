@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 ##########
 # Program: 02_news_extract.py
 # Github: @ammiiamm

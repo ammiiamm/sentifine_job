@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 ##########
 # Program: 01_news_retrieve.py
 # Github: @ammiiamm

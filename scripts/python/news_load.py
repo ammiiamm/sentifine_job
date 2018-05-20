@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 ##########
 # Program: 04_news_load.py
 # Github: @ammiiamm

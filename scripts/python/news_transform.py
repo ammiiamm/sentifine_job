@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 ##########
 # Program: 03_news_transform.py
 # Github: @ammiiamm
