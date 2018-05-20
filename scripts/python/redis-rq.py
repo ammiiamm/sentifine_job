@@ -1,9 +1,12 @@
+import sys
+sys.path.append("/home/st118957_ait/sentifine/job/scripts/python/")
+
 from rq import Queue
 from redis import Redis
-from 01_news_retrieve import func_news_retrieve
-from 02_news_extract import func_news_extract
-from 03_news_transform import func_news_transform
-from 04_news_load import func_news_load
+from news_retrieve import func_news_retrieve
+from news_extract import func_news_extract
+from news_transform import func_news_transform
+from news_load import func_news_load
 
 # Tell RQ what Redis connection to use
 redis_conn = Redis()
