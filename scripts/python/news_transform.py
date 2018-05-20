@@ -110,3 +110,5 @@ def func_news_transform(*args, **kwarg):
 
     #final log
     print("[03_news_transform] S Finished job at " + str(datetime.datetime.utcnow()))
+    job_status = "news_transform complete"
+    return (job_status)

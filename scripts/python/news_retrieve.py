@@ -161,3 +161,5 @@ def func_news_retrieve(*args, **kwarg):
     print("[01_news_retrieve] I Number of Duplicated Records :" + str(count_duplicate))
     print("[01_news_retrieve] I Number of New Records :" + str(count_insert))
     print("[01_news_retrieve] S Finished job at " + str(datetime.datetime.utcnow()))
+    job_status = "news_retrieve complete"
+    return (job_status)

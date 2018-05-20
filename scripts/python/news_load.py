@@ -108,3 +108,5 @@ def func_news_load(*args, **kwarg):
 
     #final log
     print("[04_news_load] S Finished job at " + str(datetime.datetime.utcnow()))
+    job_status = "news_load complete"
+    return (job_status)

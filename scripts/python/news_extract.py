@@ -21,6 +21,7 @@ import deepcut
 import datetime
 import traceback
 
+
 def func_news_extract(*args, **kwarg):
     #init console log
     print("[02_news_extract] S Started job at " + str(datetime.datetime.utcnow()))
@@ -285,3 +286,5 @@ def func_news_extract(*args, **kwarg):
 
     #final log
     print("[02_news_extract] S Finished job at " + str(datetime.datetime.utcnow()))
+    job_status = "news_extract complete"
+    return (job_status)
