@@ -24,6 +24,11 @@ import numpy as np
 import pymongo
 import datetime 
 import traceback
+from rq import Queue
+from redis import Redis
+from news_retrieve import func_news_retrieve
+from news_extract import func_news_extract
+from news_load import func_news_load
 
 def func_news_transform(*args, **kwarg):
 
@@ -110,5 +115,8 @@ def func_news_transform(*args, **kwarg):
 
     #final log
     print("[03_news_transform] S Finished job at " + str(datetime.datetime.utcnow()))
-    job_status = "news_transform complete"
-    return (job_status)
+    #job_status = "news_transform complete"
+    # Tell RQ what Redis connection to use
+    redis_conn = Redis()
+    q = Queue('newsfeed', connection=redis_conn)  # no args implies the default queue
+    q.enqueue(func_news_load)
