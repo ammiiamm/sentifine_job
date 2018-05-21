@@ -44,68 +44,73 @@ def func_news_load(*args, **kwarg):
     print("[04_news_load] I Loading news and model...")
     #load news
     df = pd.DataFrame(list(cursor))
-    #load json for our model's architecture
-    with open(f_model_json) as ff:
-        model_json=ff.read()
-        model=keras.models.model_from_json(model_json)
-    #load weights
-    model.load_weights(f_model_weights)
+    print("[04_news_load] I No. of news to be transformed" + df.count)
 
-    print("[04_news_load] I Setting up parameters...")
-    print(df['tf_title_int'])
-    model.compile(loss='categorical_crossentropy',
-                optimizer='adam',
-                metrics=['accuracy'])
-    title_int = pad_sequences(df['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
+    if df.count > 0:
+        #load json for our model's architecture
+        with open(f_model_json) as ff:
+            model_json=ff.read()
+            model=keras.models.model_from_json(model_json)
+        #load weights
+        model.load_weights(f_model_weights)
 
-    print("[04_news_load] I Inferencing...")
-    #news_fit = model.predict(title_int, batch_size=10, verbose=1)
-    news_class = model.predict_classes(title_int)
+        print("[04_news_load] I Setting up parameters...")
+    
+        model.compile(loss='categorical_crossentropy',
+                    optimizer='adam',
+                    metrics=['accuracy'])
+        title_int = pad_sequences(df['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
 
-    print("[04_news_load] I Updating sentiments...")
+        print("[04_news_load] I Inferencing...")
+        #news_fit = model.predict(title_int, batch_size=10, verbose=1)
+        news_class = model.predict_classes(title_int)
 
-    for index, row in df.iterrows():
-        
-        i_sentiment = ''
-        if news_class[index] == 0:
-            i_sentiment = "Negative"
-        elif news_class[index] == 1:
-            i_sentiment = "Neutral"
-        elif news_class[index] == 2:
-            i_sentiment = "Positive"
-        else:
-            i_sentiment = "NA"
+        print("[04_news_load] I Updating sentiments...")
 
-        #insert item into finnew
-        s = {
-                'source':row["source"],
-                'source_url':row["source_url"],
-                'title':row['title'],
-                'published':row['published'],
-                'title_detail':row['title_detail'],
-                'summary':row['summary'],
-                'url_link':row['url_link'],
-                'retrieved':row['retrieved'],
-                'category':row['category'],
-                'sentiment':i_sentiment,
-                'filter_BOT':row['filter_BOT'],
-                'fetch_dt':str(datetime.datetime.utcnow())
-        }    
-        try:    
-            collection_sentifine.insert_one(s)
-        except Exception as ex:
-            print ("[04_news_load] E Unexpected error while inserting collection finnew.")
-            print ("[04_news_load] E " + str(ex))
+        for index, row in df.iterrows():
+            
+            i_sentiment = ''
+            if news_class[index] == 0:
+                i_sentiment = "Negative"
+            elif news_class[index] == 1:
+                i_sentiment = "Neutral"
+            elif news_class[index] == 2:
+                i_sentiment = "Positive"
+            else:
+                i_sentiment = "NA"
 
-        #update status of item in news_raw 
-        r_query = { "_id": row["_id"]}
-        r_update = {"$set":{ "status": status_default, "ld_dt": str(datetime.datetime.utcnow())}}
+            #insert item into finnew
+            s = {
+                    'source':row["source"],
+                    'source_url':row["source_url"],
+                    'title':row['title'],
+                    'published':row['published'],
+                    'title_detail':row['title_detail'],
+                    'summary':row['summary'],
+                    'url_link':row['url_link'],
+                    'retrieved':row['retrieved'],
+                    'category':row['category'],
+                    'sentiment':i_sentiment,
+                    'filter_BOT':row['filter_BOT'],
+                    'fetch_dt':str(datetime.datetime.utcnow())
+            }    
+            try:    
+                collection_sentifine.insert_one(s)
+            except Exception as ex:
+                print ("[04_news_load] E Unexpected error while inserting collection finnew.")
+                print ("[04_news_load] E " + str(ex))
 
-        try:
-            collection_raw.update_one(r_query, r_update)
-        except Exception as ex:
-            print ("[04_news_load] E Unexpected error while updating collection news_raw.")
-            print ("[04_news_load] E " + str(ex))
+            #update status of item in news_raw 
+            r_query = { "_id": row["_id"]}
+            r_update = {"$set":{ "status": status_default, "ld_dt": str(datetime.datetime.utcnow())}}
+
+            try:
+                collection_raw.update_one(r_query, r_update)
+            except Exception as ex:
+                print ("[04_news_load] E Unexpected error while updating collection news_raw.")
+                print ("[04_news_load] E " + str(ex))
+    else:
+        print ("[04_news_load] I The rest processes was exempted due to 0 row of news")
 
     #final log
     print("[04_news_load] S Finished job at " + str(datetime.datetime.utcnow()))
