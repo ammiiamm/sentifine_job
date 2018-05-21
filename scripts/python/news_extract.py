@@ -290,8 +290,9 @@ def func_news_extract(*args, **kwarg):
 
     #final log
     print("[02_news_extract] S Finished job at " + str(datetime.datetime.utcnow()))
-    #job_status = "news_extract complete"
+    job_status = "news_extract complete"
     # Tell RQ what Redis connection to use
     redis_conn = Redis()
     q = Queue('newsfeed', connection=redis_conn)  # no args implies the default queue
     q.enqueue(func_news_transform)
+    return(job_status)
