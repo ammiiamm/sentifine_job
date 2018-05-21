@@ -25,8 +25,6 @@ import traceback
 from rq import Queue
 from redis import Redis
 from news_retrieve import func_news_retrieve
-from news_extract import func_news_extract
-from news_transform import func_news_transform
 
 def func_news_load(*args, **kwarg):
 
