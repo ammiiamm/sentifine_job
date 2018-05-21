@@ -52,13 +52,14 @@ def func_news_load(*args, **kwarg):
     model.load_weights(f_model_weights)
 
     print("[04_news_load] I Setting up parameters...")
+    print(df['tf_title_int'])
     model.compile(loss='categorical_crossentropy',
                 optimizer='adam',
                 metrics=['accuracy'])
     title_int = pad_sequences(df['tf_title_int'], maxlen = 300) #pad sequence of tf_title_int
 
     print("[04_news_load] I Inferencing...")
-    news_fit = model.predict(title_int, batch_size=10, verbose=1)
+    #news_fit = model.predict(title_int, batch_size=10, verbose=1)
     news_class = model.predict_classes(title_int)
 
     print("[04_news_load] I Updating sentiments...")
