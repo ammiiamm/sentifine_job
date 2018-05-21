@@ -110,7 +110,7 @@ def func_news_load(*args, **kwarg):
                 print ("[04_news_load] E Unexpected error while updating collection news_raw.")
                 print ("[04_news_load] E " + str(ex))
     else:
-        print ("[04_news_load] I The rest processes was exempted due to 0 row of news")
+        print ("[04_news_load] I The rest processes were exempted due to 0 row of news")
 
     #final log
     print("[04_news_load] S Finished job at " + str(datetime.datetime.utcnow()))
