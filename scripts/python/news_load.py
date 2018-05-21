@@ -44,9 +44,9 @@ def func_news_load(*args, **kwarg):
     print("[04_news_load] I Loading news and model...")
     #load news
     df = pd.DataFrame(list(cursor))
-    print("[04_news_load] I No. of news to be transformed" + df.count)
+    print("[04_news_load] I No. of news to be transformed" + str(len(df)))
 
-    if df.count > 0:
+    if len(df) > 0:
         #load json for our model's architecture
         with open(f_model_json) as ff:
             model_json=ff.read()
