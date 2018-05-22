@@ -41,7 +41,7 @@ def func_news_retrieve(*args, **kwarg):
         bkkbiznews_fin = r'http://www.bangkokbiznews.com/rss/feed/finance.xml',
         bkkbiznews_property = r'http://www.bangkokbiznews.com/rss/feed/property.xml',
         thaipbs_econ = r'http://news.thaipbs.or.th/rss/news/economy',
-        matichon_econ = r'https://www.matichon.co.th/category/economy/feed',
+        #matichon_econ = r'https://www.matichon.co.th/category/economy/feed',
         manager_stock = r'http://www.manager.co.th/RSS/StockMarket/StockMarket.xml',
         manager_mutualfund = r'http://www.manager.co.th/RSS/MutualFund/MutualFund.xml',
         manager_biz = r'http://www.manager.co.th/RSS/iBizChannel/iBizChannel.xml',
