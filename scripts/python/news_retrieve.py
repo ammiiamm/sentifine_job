@@ -83,7 +83,7 @@ def func_news_retrieve(*args, **kwarg):
             manager_biz = 'Manager'
         )
 
-    data = []
+    #data = []
     count_insert = 0
     count_duplicate = 0
     filterBOTKeyword = ['ธปท','ธนาคารแห่งประเทศไทย','ธนาคารชาติ','ธนาคารกลาง','แบงค์ชาติ',
@@ -118,6 +118,11 @@ def func_news_retrieve(*args, **kwarg):
 
                 published = parser.parse(art['published'])
                 sentiment_default = "Retrieved"
+                #remove blank space
+                new_summary = art['summary'].replace('<p>&nbsp;</p>', '')
+                #remove last line
+                #new_smmary = art['summary'].replace(' <p>The post <a rel="nofollow"', '')
+
                 m = {
                     '_id':art['link'],
                     'title':art['title'],
@@ -132,7 +137,7 @@ def func_news_retrieve(*args, **kwarg):
                     'title':art['title'],
                     'published':published,
                     'title_detail':art['title_detail']['value'],
-                    'summary':art['summary'],
+                    'summary':new_summary,
                     'category':news_cat.get(feed),
                     'url_link':art['link'],
                     'retrieved':dt,
