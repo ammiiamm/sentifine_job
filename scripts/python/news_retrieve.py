@@ -19,6 +19,12 @@ import feedparser
 import datetime
 import pymongo
 import traceback
+import re
+
+def cleanhtml(raw_html):
+    cleanr = re.compile('<.*?>')
+    cleantext = re.sub(cleanr, '', raw_html)
+    return cleantext
 
 def func_news_retrieve(*args, **kwarg):
     #init console log
@@ -124,11 +130,12 @@ def func_news_retrieve(*args, **kwarg):
                     'url_link':art['link'],
                     'retrieved':dt
                 }
-
+                z_title = cleanhtml(art['title'])
                 r = {
                     'source':news_source.get(feed),
                     'source_url':feed,
-                    'title':art['title'],
+                    #'title':art['title'],
+                    'title':z_title,
                     'published':published,
                     'title_detail':art['title_detail']['value'],
                     'summary':art['summary'],
