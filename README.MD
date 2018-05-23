@@ -3,25 +3,21 @@ SentiFine Back-end Job
 
 The purpose of this repository is to perform ETL process for SentiFine Web Application. This git consolidated all back-end script of SentiFine Web Application which has the overview concept as follows:
 
-**Program 01: news_retrieve.py**
+**Program 01: news_retrieve.py** (MongoDB Collections: news_map, news_raw)
 1. Retrieve news by RSS Scraping from the specific sources
 2. Check News Duplicate from URL and Update MongoDB (news_map, news_raw)
-(MongoDB Collections: news_map, news_raw)
 
-**Program 02: news_extract.py**
+**Program 02: news_extract.py** (MongoDB Collection: news_raw)
 1. Clean text by removing unnecessary characters
 2. Thai Text tokenization by the power of deepcut library
-(MongoDB Collection: news_raw)
 
-**Program 03: news_transform.py**
+**Program 03: news_transform.py** (MongoDB Collection: news_raw)
 1. Load Thai2vec Pre-trained Word Embedding
 2. Transform Thai Headline news to word vectors format
-(MongoDB Collection: news_raw)
 
-**Program 04: news_load.py**
+**Program 04: news_load.py** (MongoDB Collections: news_raw, finnew)
 1. Pass the word vectors through our Unsupervised ML Model
 2. Save the sentiment output in the final Collection
-(MongoDB Collections: news_raw, finnew)
 
 All scripts were written and tested on Ubuntu 16.04 server with the following requirements:
 
