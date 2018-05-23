@@ -1,7 +1,7 @@
 SentiFine Back-end Job
 =============
 
-The purpose of this repository is to perform ETL process for SentiFine Web Application. This git consolidated all back-end script of SentiFine Web Application which has the overview concept as follows:
+The purpose of this repository is to perform ETL process for SentiFine Web Application. This git consolidated all back-end scripts of SentiFine Web Application which has the overview concept as follows:
 
 **Program 01: news_retrieve.py** (MongoDB Collections: news_map, news_raw)
 1. Retrieve news by RSS Scraping from the specific sources
