@@ -16,24 +16,24 @@ The purpose of this repository is to perform ETL process for SentiFine Web Appli
 2. Transform Thai Headline news to word vectors format
 
 **Program 04: news_load.py** (MongoDB Collections: news_raw, finnew)
-1. Pass the word vectors through our Unsupervised ML Model
+1. Pass the word vectors through our ML Model
 2. Save the sentiment output in the final Collection
 
 All scripts were written and tested on Ubuntu 16.04 server with the following requirements:
 
-### Requirement 
+## Requirement 
 1. Python3
 2. MongoDB 
 
-### Install & Run it!
+## Install & Run it!
 1. Clone this repository:
-    git clone https://github.com/ammiiamm/sentifine_job.git
+    `git clone https://github.com/ammiiamm/sentifine_job.git`
 
 2. Go to the main script:
-    cd sentifine_job/scripts/python
+    `cd sentifine_job/scripts/python`
 
-3. Run it with below command:
-    python3 autonewsfeed.py
+3. Run it with command:
+    `python3 autonewsfeed.py`
 
-### Note
+## Note
 Log pattern: `[Program name] [I=Information, S=Status, E=Error, W=Warning] [Description]`
