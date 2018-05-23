@@ -25,11 +25,11 @@ The purpose of this repository is to perform ETL process for SentiFine Web Appli
 
 All scripts were written and tested on Ubuntu 16.04 server with the following requirements:
 
-# Requirement 
+### Requirement 
 1. Python3
 2. MongoDB 
 
-# Install & Run it!
+### Install & Run it!
 1. Clone this repository:
     git clone https://github.com/ammiiamm/sentifine_job.git
 
@@ -39,5 +39,5 @@ All scripts were written and tested on Ubuntu 16.04 server with the following re
 3. Run it with below command:
     python3 autonewsfeed.py
 
-# Note
+### Note
 Log pattern: `[Program name] [I=Information, S=Status, E=Error, W=Warning] [Description]`
