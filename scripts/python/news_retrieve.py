@@ -132,7 +132,7 @@ def func_news_retrieve(*args, **kwarg):
                 }
 
                 r = {
-                    'source':news_source.get(feed),
+                    'source':news_source.get(feed, default = 'BangkokBizNews'),
                     'source_url':feed,
                     'title':art['title'],
                     'published':published,
