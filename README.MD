@@ -36,4 +36,4 @@ All scripts were written and tested on Ubuntu 16.04 server with the following re
     `python3 autonewsfeed.py`
 
 ## Note
-Log pattern: `[Program name] [I=Information, S=Status, E=Error, W=Warning] [Description]`
+Log pattern: `[Script name] [I=Information, S=Status, E=Error, W=Warning] [Description]`
