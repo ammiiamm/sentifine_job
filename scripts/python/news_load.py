@@ -22,6 +22,7 @@ import pandas as pd
 import pymongo
 import datetime 
 import traceback
+from keras.models import load_model
 
 def func_news_load(*args, **kwarg):
 
@@ -33,6 +34,7 @@ def func_news_load(*args, **kwarg):
     #f_model_weights = "/home/st118957_ait/sentifine/model/thai2vec-3_model_weights.h5"
     f_model_json = '/home/st118957_ait/sentifine/model/pretrain_thai2vec_no_dropout_model_json.json'
     f_model_weights = "/home/st118957_ait/sentifine/model/pretrain_thai2vec_no_dropout_model_weights.h5"
+    f_model = "/home/st118957_ait/sentifine/model/pretrain_thai2vec_no_dropout_model.h5"
     status_default = "Loaded"
 
     # Connect to MongoDB
@@ -50,11 +52,13 @@ def func_news_load(*args, **kwarg):
 
     if len(df) > 0:
         #load json for our model's architecture
-        with open(f_model_json) as ff:
-            model_json=ff.read()
-            model=keras.models.model_from_json(model_json)
+        #with open(f_model_json) as ff:
+        #    model_json=ff.read()
+        #    model=keras.models.model_from_json(model_json)
         #load weights
-        model.load_weights(f_model_weights)
+        #model.load_weights(f_model_weights)
+
+        model = load_model(f_model)
 
         print("[04_news_load] I Setting up parameters...")
     
