@@ -41,7 +41,7 @@ def func_news_transform(*args, **kwarg):
     df = pd.DataFrame(list(cursor))
     status_default = "Transformed"
     #thai2vec_vector = "/home/st118957_ait/sentifine/wordembedding/thai2vec.vec"
-    thai2vec_vocab = "/home/st118957_ait/sentifine/wordembedding/thai2vec.vocab"
+    thai2vec_vocab = "/Users/ammii/sentifine_job/thai2vec.vocab"
 
 
     print("[03_news_transform] I Setting up vocab...")
